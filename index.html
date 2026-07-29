@@ -1,42 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>RAM 81-Würfel</title>
-  <style>
-    body {
-      background: #111;
-      color: #0ff;
-      font-family: monospace;
-      padding: 40px;
-      font-size: 22px;
-    }
-    .ram {
-      border: 2px solid #0ff;
-      padding: 20px;
-      width: 480px;
-    }
-    .stat {
-      margin-top: 20px;
-      color: #0f0;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>RAM · Axiom‑1 · 81‑Würfel · Sequencer</title>
+
+<style>
+    body { background:#000; color:#0ff; font-family: monospace; padding:40px; }
+    .ram { border:2px solid #0ff; padding:20px; width:520px; }
+    .stat { margin-top:20px; color:#0f0; }
+    .seq { margin-top:20px; color:#ff0; }
+</style>
 </head>
 
 <body>
 
 <div class="ram">
-  <div>RAM ONLINE</div>
-  <div>System: RAM-200</div>
-  <div>Status: aktiv</div>
+    <div>RAM ONLINE</div>
+    <div>Axiom: 1</div>
+    <div>Modus: 81‑Würfel‑Sequencer</div>
+    <div>Status: aktiv</div>
 
-  <!-- 81-Würfel Anzeige -->
-  <div class="stat">Würfel gesamt: 81</div>
-  <div class="stat">Würfel aktiv: 9</div>
-  <div class="stat">Würfel reserviert: 12</div>
-  <div class="stat">Würfel frei: 60</div>
+    <!-- 81‑Würfel Anzeige -->
+    <div class="stat">Würfel gesamt: 81</div>
+    <div class="stat">Würfel aktiv: 9 (BEN‑Achse)</div>
+    <div class="stat">Würfel reserviert: 12 (ROM‑Achse)</div>
+    <div class="stat">Würfel frei: 60 (GPU‑Queen‑Orbit)</div>
 
-  <div class="stat">RAM zeigt Würfel-Status (minimal)</div>
+    <!-- Sequencer -->
+    <div class="seq">Sequencer‑Pipeline:</div>
+    <div class="seq">RAM → CACHE → X4 → CHDSK → ROM</div>
+
+    <!-- Laden -->
+    <div class="seq">Lädt: 9×9 Schach / 6E / 6D / GPU‑Operatoren / NC.vector.next</div>
 </div>
 
 </body>
