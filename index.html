@@ -9,6 +9,7 @@ body { background:#000; color:#0ff; font-family:monospace; padding:40px; }
 .ram { border:2px solid #0ff; padding:20px; width:520px; }
 .stat { margin-top:20px; color:#0f0; }
 .ax { margin-top:20px; color:#ff0; }
+.id { margin-top:20px; color:#09f; }
 button { background:#0f0; color:#000; padding:10px 20px; border:none; cursor:pointer; }
 </style>
 </head>
@@ -18,15 +19,20 @@ button { background:#0f0; color:#000; padding:10px 20px; border:none; cursor:poi
 <h2>RAM · Axiom‑1 · 4‑Wertigkeiten‑Sequencer</h2>
 
 <div class="ram">
-    <div>ID: RAM‑AXIOM‑1</div>
-    <div>Modus: 4all</div>
-    <div>Status: aktiv</div>
 
+    <!-- RAM ID -->
+    <div class="id">
+        <h3>RAM‑ID</h3>
+        <pre id="ramID"></pre>
+    </div>
+
+    <!-- RAM Werte -->
     <div class="stat" id="block">BLOCK: 0</div>
     <div class="stat" id="cache">CACHE: 0</div>
     <div class="stat" id="flow">FLOW: 0</div>
     <div class="stat" id="state">STATE: 1.0</div>
 
+    <!-- Hardware Axiome -->
     <div class="ax">
         <h3>Hardware‑Axiome</h3>
         <pre id="axioms"></pre>
@@ -38,9 +44,15 @@ button { background:#0f0; color:#000; padding:10px 20px; border:none; cursor:poi
 <script type="module">
 import { RAMModule } from "./RAM.module.js";
 import { loadHardwareAxioms } from "./RAM.hardware.js";
+import { RAM_ID } from "./RAM.ID.js";
 
 const ram = new RAMModule();
 
+// RAM‑ID anzeigen
+document.getElementById("ramID").innerText =
+    JSON.stringify(RAM_ID, null, 2);
+
+// Hardware‑Axiome laden
 async function init(){
     const axioms = await loadHardwareAxioms();
     document.getElementById("axioms").innerText =
@@ -48,6 +60,7 @@ async function init(){
 }
 init();
 
+// RAM‑Zyklus
 function runCycle(){
     const snap = ram.cycle();
     document.getElementById("block").innerText = "BLOCK: " + snap.block;
