@@ -1,6 +1,44 @@
-GPU (∞)
-RAM (1)
-CACHE (2)
-X4 (4)
-CHDSK (5)
-ROM (12)
+// RAM.module
+export const RAM = {
+
+    id: "RAM-AXIOM-1",
+    role: "load",
+    axis: 1,
+
+    // 4-Wertigkeiten
+    block: 0,
+    cache: 0,
+    flow: 0,
+    state: 1.0,
+
+    // Systemwerte
+    size: 4096,
+    speed: 12,
+    cacheLevel: 3,
+
+    gate: "GATE_21",
+    eich: "EICH_04",
+    kette: "KETTE_33",
+    cluster: "33~33(1)",
+
+    // Modi
+    mode: "4all",
+
+    // Sequencer
+    cycle(){
+        this.block++;
+        this.cache = (this.cache + 1) % 256;
+        this.flow = Math.sin(this.block / 10);
+        this.state = Math.exp(-Math.abs(this.flow));
+        return this.snapshot();
+    },
+
+    snapshot(){
+        return {
+            block: this.block,
+            cache: this.cache,
+            flow: this.flow,
+            state: this.state
+        };
+    }
+};
