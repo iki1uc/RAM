@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>RAM · Axiom‑1 · Sequencer</title>
+<title>RAM · Axiom‑1 · Hardware‑Sequencer</title>
 
 <style>
-    body { background:#000; color:#0ff; font-family: monospace; padding:40px; }
-    .ram { border:2px solid #0ff; padding:20px; width:520px; }
-    .stat { margin-top:20px; color:#0f0; }
-    button { background:#0f0; color:#000; padding:10px 20px; border:none; cursor:pointer; }
+body { background:#000; color:#0ff; font-family:monospace; padding:40px; }
+.ram { border:2px solid #0ff; padding:20px; width:520px; }
+.stat { margin-top:20px; color:#0f0; }
+.ax { margin-top:20px; color:#ff0; }
+button { background:#0f0; color:#000; padding:10px 20px; border:none; cursor:pointer; }
 </style>
 </head>
 
@@ -25,15 +26,30 @@
     <div class="stat" id="cache">CACHE: 0</div>
     <div class="stat" id="flow">FLOW: 0</div>
     <div class="stat" id="state">STATE: 1.0</div>
+
+    <div class="ax">
+        <h3>Hardware‑Axiome</h3>
+        <pre id="axioms"></pre>
+    </div>
 </div>
 
 <button onclick="runCycle()">RAM‑Zyklus</button>
 
 <script type="module">
-import { RAM } from "./RAM.module.js";
+import { RAMModule } from "./RAM.module.js";
+import { loadHardwareAxioms } from "./RAM.hardware.js";
+
+const ram = new RAMModule();
+
+async function init(){
+    const axioms = await loadHardwareAxioms();
+    document.getElementById("axioms").innerText =
+        JSON.stringify(axioms, null, 2);
+}
+init();
 
 function runCycle(){
-    const snap = RAM.cycle();
+    const snap = ram.cycle();
     document.getElementById("block").innerText = "BLOCK: " + snap.block;
     document.getElementById("cache").innerText = "CACHE: " + snap.cache;
     document.getElementById("flow").innerText  = "FLOW: " + snap.flow.toFixed(4);
